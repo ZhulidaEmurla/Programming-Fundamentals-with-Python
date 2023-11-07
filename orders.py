@@ -1,14 +1,19 @@
-def calculate_total_price(product, quantity):
-    if product == 'coffee':
-        return f'{1.50 * quantity:.2f}'
-    elif product == 'coke':
-        return f'{1.40 * quantity:.2f}'
-    elif product == 'water':
-        return f'{1.00 * quantity:.2f}'
-    elif product == 'snacks':
-        return f'{2.00 * quantity:.2f}'
+products = {}
 
-product = input()
-quantity = int(input())
-result = calculate_total_price(product, quantity)
-print(result)
+while True:
+    command = input()
+    if command == "buy":
+        break
+
+    product_name, price, quantity = command.split()
+    price, quantity = float(price), int(quantity)
+
+    if product_name not in products:
+        products[product_name] = {'price': price, 'quantity': quantity}
+    else:
+        products[product_name]['price'] = price
+        products[product_name]['quantity'] += quantity
+
+for product, data in products.items():
+    total_price = data['price'] * data['quantity']
+    print(f"{product} -> {total_price:.2f}")
